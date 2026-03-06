@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlantCare AI - Plant Disease Detection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+    <!-- Responsive Navigation Bar -->
+    {% include 'nav.html' %}
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-green-50 to-emerald-50 py-20 px-4">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+                Detect Plant Diseases Instantly
+            </h2>
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                PlantCare AI uses advanced technology to identify plant diseases with exceptional accuracy. Keep your plants healthy and thriving.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="{{ url_for('upload') }}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 text-center">
+                    Get Started
+                </a>
+                <button class="border-2 border-green-600 text-green-600 hover:bg-green-50 font-bold py-3 px-8 rounded-lg transition duration-300">
+                    Learn More
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Highlights Section -->
+    <section id="features" class="py-20 px-4 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-4xl font-bold text-center text-gray-900 mb-16">Why Choose PlantCare AI?</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1: Instant Detection -->
+                <div class="bg-white border-2 border-green-100 rounded-lg p-8 text-center hover:shadow-lg transition">
+                    <div class="text-5xl mb-4">⚡</div>
+                    <h4 class="text-2xl font-bold text-gray-900 mb-3">Instant Detection</h4>
+                    <p class="text-gray-600">
+                        Get real-time analysis of your plants. Simply upload a photo and receive instant disease identification within seconds.
+                    </p>
+                </div>
+
+                <!-- Feature 2: High Accuracy -->
+                <div class="bg-white border-2 border-green-100 rounded-lg p-8 text-center hover:shadow-lg transition">
+                    <div class="text-5xl mb-4">🎯</div>
+                    <h4 class="text-2xl font-bold text-gray-900 mb-3">High Accuracy</h4>
+                    <p class="text-gray-600">
+                        Our AI model achieves 95% accuracy in disease detection, providing reliable diagnoses you can trust for plant care decisions.
+                    </p>
+                </div>
+
+                <!-- Feature 3: Easy to Use -->
+                <div class="bg-white border-2 border-green-100 rounded-lg p-8 text-center hover:shadow-lg transition">
+                    <div class="text-5xl mb-4">🌿</div>
+                    <h4 class="text-2xl font-bold text-gray-900 mb-3">Easy to Use</h4>
+                    <p class="text-gray-600">
+                        No technical expertise required. Our intuitive interface makes plant disease detection accessible to everyone, from beginners to experts.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="stats" class="py-20 px-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-4xl font-bold text-center mb-16">Our Capabilities</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Stat 1: Diseases -->
+                <div class="text-center">
+                    <div class="text-6xl font-bold mb-3">38+</div>
+                    <p class="text-xl opacity-90">Plant Diseases Detected</p>
+                </div>
+
+                <!-- Stat 2: Accuracy -->
+                <div class="text-center">
+                    <div class="text-6xl font-bold mb-3">95%</div>
+                    <p class="text-xl opacity-90">Detection Accuracy</p>
+                </div>
+
+                <!-- Stat 3: Plant Species -->
+                <div class="text-center">
+                    <div class="text-6xl font-bold mb-3">10+</div>
+                    <p class="text-xl opacity-90">Plant Species Supported</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-20 px-4 bg-gray-50">
+        <div class="max-w-2xl mx-auto text-center">
+            <h3 class="text-4xl font-bold text-gray-900 mb-6">Ready to Protect Your Plants?</h3>
+            <p class="text-xl text-gray-600 mb-8">
+                Start using PlantCare AI today and ensure your plants remain healthy and disease-free.
+            </p>
+            <a href="{{ url_for('upload') }}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-10 rounded-lg text-lg transition duration-300">
+                Start Free Diagnosis
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 px-4">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="text-gray-400">&copy; 2024 PlantCare AI. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

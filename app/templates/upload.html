@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Detection - Upload Leaf Image</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-green-50 to-green-100 min-h-screen">
+    <div class="container mx-auto px-4 py-12">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-green-800 mb-2">Plant Disease Detection</h1>
+            <p class="text-gray-600 text-lg">Upload a leaf image to detect potential diseases and get care recommendations</p>
+        </div>
+
+        <!-- Upload Card -->
+        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
+            <form method="POST" enctype="multipart/form-data" id="uploadForm">
+                <!-- File Input Area -->
+                <div class="mb-8">
+                    <label for="leafImage" class="block mb-4">
+                        <div class="border-3 border-dashed border-green-400 rounded-lg p-12 text-center cursor-pointer hover:border-green-600 hover:bg-green-50 transition-all duration-300" id="dropZone">
+                            <div class="mb-4">
+                                <svg class="mx-auto h-12 w-12 text-green-600" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-12l-3.172-3.172a4 4 0 00-5.656 0L28 12m0 0L16.828 .828a4 4 0 00-5.656 0L8 3.172" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Upload Plant Leaf Image</h3>
+                            <p class="text-gray-600 mb-1">Click to select or drag and drop</p>
+                            <p class="text-sm text-gray-500">PNG, JPG, JPEG up to 10MB</p>
+                        </div>
+                    </label>
+                    <input type="file" id="leafImage" name="leafImage" class="hidden" accept="image/png,image/jpeg,image/jpg" required>
+                </div>
+
+                <!-- Preview Section -->
+                <div id="previewSection" class="mb-8 hidden">
+                    <div class="bg-gray-100 rounded-lg p-6">
+                        <h4 class="text-sm font-semibold text-gray-700 mb-4">Image Preview</h4>
+                        <img id="imagePreview" src="" alt="Preview" class="max-w-full h-auto rounded-lg mx-auto max-h-64">
+                        <p id="fileName" class="text-center text-sm text-gray-600 mt-4"></p>
+                    </div>
+                </div>
+
+                <!-- File Info -->
+                <div id="fileInfo" class="mb-8 hidden">
+                    <div class="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <div>
+                            <p class="text-sm font-medium text-blue-900" id="fileInfoText"></p>
+                        </div>
+                        <button type="button" id="clearFile" class="text-blue-600 hover:text-blue-800 font-medium text-sm">
+                            Change
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-200 mb-4">
+                    Analyze Leaf for Diseases
+                </button>
+
+                <!-- Cancel Button -->
+                <a href="/" class="block w-full text-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-4 rounded-lg transition-colors duration-200">
+                    Cancel
+                </a>
+            </form>
+        </div>
+
+        <!-- Info Section -->
+        <div class="max-w-2xl mx-auto mt-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg shadow p-6 text-center">
+                    <div class="text-3xl mb-2">📸</div>
+                    <h3 class="font-bold text-gray-800 mb-2">Clear Photo</h3>
+                    <p class="text-gray-600 text-sm">Take or upload a clear photo of an affected leaf</p>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6 text-center">
+                    <div class="text-3xl mb-2">🔍</div>
+                    <h3 class="font-bold text-gray-800 mb-2">AI Analysis</h3>
+                    <p class="text-gray-600 text-sm">Our AI detects diseases and identifies the type</p>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6 text-center">
+                    <div class="text-3xl mb-2">💊</div>
+                    <h3 class="font-bold text-gray-800 mb-2">Get Solutions</h3>
+                    <p class="text-gray-600 text-sm">Receive treatment recommendations and care tips</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const leafImageInput = document.getElementById('leafImage');
+        const previewSection = document.getElementById('previewSection');
+        const imagePreview = document.getElementById('imagePreview');
+        const fileName = document.getElementById('fileName');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileInfoText = document.getElementById('fileInfoText');
+        const uploadForm = document.getElementById('uploadForm');
+        const clearFileBtn = document.getElementById('clearFile');
+
+        // Drag and drop events
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-green-600', 'bg-green-50');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-green-600', 'bg-green-50');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-green-600', 'bg-green-50');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                leafImageInput.files = files;
+                handleFileSelect();
+            }
+        });
+
+        // File input change event
+        leafImageInput.addEventListener('change', handleFileSelect);
+
+        function handleFileSelect() {
+            const file = leafImageInput.files[0];
+            if (file) {
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                    alert('Please select a valid image file (PNG, JPG, JPEG)');
+                    return;
+                }
+
+                // Validate file size (10MB)
+                if (file.size > 10 * 1024 * 1024) {
+                    alert('File size must be less than 10MB');
+                    leafImageInput.value = '';
+                    return;
+                }
+
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                    fileName.textContent = file.name;
+                    previewSection.classList.remove('hidden');
+                    fileInfo.classList.remove('hidden');
+                    fileInfoText.textContent = `Selected: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Clear file
+        clearFileBtn.addEventListener('click', () => {
+            leafImageInput.value = '';
+            previewSection.classList.add('hidden');
+            fileInfo.classList.add('hidden');
+        });
+
+        // Form submission
+        uploadForm.addEventListener('submit', (e) => {
+            if (!leafImageInput.files.length) {
+                e.preventDefault();
+                alert('Please select an image file');
+            }
+        });
+    </script>
+</body>
+</html>
