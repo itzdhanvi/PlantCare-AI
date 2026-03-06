@@ -69,3 +69,7 @@ img_path = os.path.join(sample_path, sample_image)
 img = Image.open(img_path)
 
 print("Image Size:", img.size)
+
+total_images = sum(class_count.values())
+
+print("Total Images in Dataset:", total_images)
